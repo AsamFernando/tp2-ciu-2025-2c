@@ -1,44 +1,46 @@
 import {Button, Form, FloatingLabel} from 'react-bootstrap';
-import { useContext } from "react";
-import { UserContext } from "../Contexts";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import type { loginProps, userBD } from '../Types/Types';
 
-type userBD = {
-    nickName:string,
-    email:string
-}
+// const sesionStorage = window.localStorage;
 
 //usar localstorage para mantener la sesion aunque se actualice la pagina 
 //o se cierre el navegador o la pestaña
 //hacer logout borrando los estados localstorage y redirigiendo a inicio de sesion
 
-const IniciarSesion = () => {
+const IniciarSesion = ({login}:loginProps) => {
     // metemos usestate con onchange para todo a dos manos
-    const {user, setUser} = useContext(UserContext);
     const [nickName, setNickName] = useState<string>("")
     const [contraseña, setContraseña] = useState<number>(0)
-
-    const obtenerUsers = async () => {
-        const data = await fetch('http://localhost:3001/users')
-        const users = await data.json()
-        return users.find((u:userBD) => u.nickName == nickName)
-    }
-
     const navigate = useNavigate()
 
+    const userRegistrado = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/users')
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const users = await response.json()
+            return users.find((u:userBD) => u.nickName == nickName)
+        }
+        catch (error:any) {
+            console.log("Error del servidor: ", error.message)
+        }
+    };
+
+    //seteo si cumple la validacion el user en el contexto y en el localstorage con la funcion y redirijo a home
+    //luego en app.jsx puedo tomar el user del localstorage si actualizo la pag o cierro el navegador o la pestaña
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const userFound = await obtenerUsers()
+        const userFound = await userRegistrado()
         if(userFound && contraseña == 1234) {
-            setUser({nickName, logueado:true})
+            const userLogueado = {...userFound, logueado:true}
+            login(userLogueado)
             navigate('/home')
         }
         else {
             console.log('contraseña o nickName invalido')
-        }
-        console.log(user)
-    }
+        };
+    };
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -69,3 +71,5 @@ const IniciarSesion = () => {
 }
 
 export default IniciarSesion;
+
+// 'terminada logica de login y logout con localstorage y context'

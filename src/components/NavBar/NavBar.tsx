@@ -1,9 +1,11 @@
-import {Container, Nav, Navbar} from 'react-bootstrap'
+import {Container, Nav, Navbar, Button} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom';
+import type { logoutProps } from '../../Types/Types';
 
 //agregar pagina publicaciones
 
-const NavBar = () => {
+const NavBar = ({logout}:logoutProps) => {
+
     const secciones: {id:number, nombre:string, to:string}[] = [
         {id:1, nombre:'Home', to: '/Home'},
         {id:4, nombre:'Perfil', to: '/Perfil'},
@@ -15,7 +17,7 @@ const NavBar = () => {
                 <Navbar.Brand as={NavLink} to="/" className="brand">Anti-Social-Network</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto nav-items">
+                    <Nav className="ml-auto nav-items">
                         {secciones.map(s => (
                             <Nav.Link
                                 key={s.id}
@@ -28,6 +30,9 @@ const NavBar = () => {
                             </Nav.Link>
                         ))}
                     </Nav>
+                    <div className='ms-auto'>
+                        <Button variant='secondary' size='sm' onClick={logout}>Cerrar Sesion</Button>
+                    </div>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
