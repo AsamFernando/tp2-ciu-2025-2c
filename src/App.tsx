@@ -5,9 +5,6 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "./Contexts";
 import type { UserLogueadoType } from "./Types/Types";
 
-
-function App() {
-  const {user, setUser} = useContext(UserContext);
 //con useEffect le paso un array vacio de dependencias para q ejecute la funcion cada vez q se
 //actualiza la pagina en el navegador y cargue en el useContext el usuario si hay uno logueado en localStorage
 //si no mantiene en el estado el q esta por defecto con la propiedad logueado en false, mostrando las rutas que
@@ -15,6 +12,9 @@ function App() {
 
 //las funciones de login y logout no las pongo en el contexto ya q son de uso particular
 //del navbar con el boton cerrar sesion y de la page iniciar sesion
+
+function App() {
+  const {user, setUser} = useContext(UserContext);
 const localStorageUserKey = 'userLogueado';
 
   useEffect(() => {

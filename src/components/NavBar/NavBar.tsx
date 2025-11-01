@@ -24,7 +24,6 @@ const NavBar = ({logout}:logoutProps) => {
                                 as={NavLink}
                                 to={s.to}
                                 end
-                                // className={({ isActive }) => isActive ? 'nav-link-custom active' : 'nav-link-custom'}
                             >
                                 {s.nombre}
                             </Nav.Link>
