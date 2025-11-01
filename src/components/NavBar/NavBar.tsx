@@ -8,11 +8,12 @@ const NavBar = ({logout}:logoutProps) => {
 
     const secciones: {id:number, nombre:string, to:string}[] = [
         {id:1, nombre:'Home', to: '/Home'},
-        {id:4, nombre:'Perfil', to: '/Perfil'},
+        {id:2, nombre:'Perfil', to: '/Perfil'},
+        {id:3, nombre:'Publicaciones', to: '/Publicaciones'},
     ];
 
     return (
-        <Navbar sticky='top' expand="lg" className="bg-body-tertiary navbar-custom">
+        <Navbar sticky='top' expand="lg" className="bg-body-tertiary">
             <Container fluid>
                 <Navbar.Brand as={NavLink} to="/" className="brand">Anti-Social-Network</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

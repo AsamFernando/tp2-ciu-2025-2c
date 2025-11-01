@@ -1,6 +1,6 @@
 import { Layout } from './components';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import {Home, IniciarSesion, Registro, Perfil, Post, Publicar} from './pages';
+import {Home, IniciarSesion, Registro, Perfil, Post, Publicar, Publicaciones} from './pages';
 import { useContext, useEffect } from "react";
 import { UserContext } from "./Contexts";
 import type { UserLogueadoType } from "./Types/Types";
@@ -54,6 +54,7 @@ const localStorageUserKey = 'userLogueado';
           <Route path="/Perfil" element={<Perfil />} />
           <Route path="/Post" element={<Post />} />
           <Route path="/Publicar" element={<Publicar />} />
+          <Route path="/Publicaciones" element={<Publicaciones />} />
           <Route path="/*" element={ <Navigate to="/" /> } />
         </Route>
       </Routes>
