@@ -17,13 +17,13 @@ export const loginSchema = yup.object().shape({
         
     contraseña: yup
         .string()
-        .required('Debe ingresar un una contraseña')
+        .required('Debe ingresar una contraseña')
         .test(
-            'es-1234',
+            'es-123456',
             "La contraseña es incorrecta",
             (password) => {
                 if(password === "") return true
-                return password == '1234'
+                return password == '123456'
             }
         )
 });
@@ -31,13 +31,13 @@ export const loginSchema = yup.object().shape({
 export const inputSchema = yup.object().shape({
     nickName: yup
         .string()
-        .required('Debe ingresar un nickName')
         .trim('No puede contener solo espacios')
         .min(2, 'El nickName debe tener ${min} caracteres como minimo')
-        .max(12, 'El nickName debe tener ${max} caracteres máximo'),
+        .max(12, 'El nickName debe tener ${max} caracteres máximo')
+        .required('Debe ingresar un nickName'),
         
     contraseña: yup
         .string()
-        .required('Debe ingresar una contraseña')
         .trim('No puede contener solo espacios')
+        .required('Debe ingresar una contraseña')
 });

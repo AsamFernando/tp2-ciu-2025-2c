@@ -2,7 +2,7 @@ import {Container, Nav, Navbar, Button} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom';
 import type { logoutProps } from '../../Types/Types';
 
-//agregar pagina publicaciones
+//agregar pagina publicaciones --> hecho
 
 const NavBar = ({logout}:logoutProps) => {
 

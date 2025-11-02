@@ -7,23 +7,6 @@ import {loginSchema, inputSchema} from '../schemas/LoginSchema';
 import { getUserByNickName } from '../api/users';
 import { FormInput } from '../components';
 
-
-//metemos usestate con onchange para todo a dos manos
-//handleSubmit
-//seteo si cumple la validacion el user en el contexto y en el localstorage con la funcion y redirijo a home
-//luego en app.jsx puedo tomar el user del localstorage si actualizo la pag o cierro el navegador o la pestaña
-
-//Tareas
-//Hacer validaciones si esta mal nickName y/o contraseña
-//contra numerica y longitud tambien para nick
-//hacer registro tambien con validaciones y redireccion
-//Poner en el boton un circulito de cargando cuando se hace click
-//validaciones con estados del formulario y errores
-
-//useEffect para validar luego del primer render con useRef
-//validateLogin valida los campos pero no si el user existe en bd con inputSchema
-//con loginSchema valido si el userExiste en bd en onSubmit
-
 const IniciarSesion = ({login}:loginProps) => {
     const [formulario, setFormulario] = useState<{nickName:string, contraseña:string}>({nickName:"", contraseña:""})
     const [errores, setErrores] = useState<any>({})
@@ -98,3 +81,21 @@ const IniciarSesion = ({login}:loginProps) => {
 }
 
 export default IniciarSesion;
+
+/* --Comentarios--
+metemos usestate con onchange para todo a dos manos
+handleSubmit
+seteo si cumple la validacion el user en el contexto y en el localstorage con la funcion y redirijo a home
+luego en app.jsx puedo tomar el user del localstorage si actualizo la pag o cierro el navegador o la pestaña
+
+Tareas
+Hacer validaciones si esta mal nickName y/o contraseña --> hecho
+contra string y longitud tambien para nick --> hecho
+hacer registro tambien con validaciones y redireccion
+Poner en el boton un circulito de cargando cuando se hace click
+validaciones con estados del formulario y errores --> hecho
+
+useEffect para validar luego del primer render con useRef --> hecho
+validateLogin valida los campos pero no si el user existe en bd con inputSchema --> hecho
+con loginSchema valido si el userExiste en bd en onSubmit --> hecho
+*/

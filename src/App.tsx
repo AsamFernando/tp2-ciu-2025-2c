@@ -5,14 +5,6 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "./Contexts";
 import type { UserLogueadoType } from "./Types/Types";
 
-//con useEffect le paso un array vacio de dependencias para q ejecute la funcion cada vez q se
-//actualiza la pagina en el navegador y cargue en el useContext el usuario si hay uno logueado en localStorage
-//si no mantiene en el estado el q esta por defecto con la propiedad logueado en false, mostrando las rutas que
-//corresponden a un user sin sesion iniciada
-
-//las funciones de login y logout no las pongo en el contexto ya q son de uso particular
-//del navbar con el boton cerrar sesion y de la page iniciar sesion
-
 function App() {
   const {user, setUser} = useContext(UserContext);
   const localStorageUserKey = 'userLogueado';
@@ -31,9 +23,7 @@ function App() {
     localStorage.removeItem(localStorageUserKey)
     setUser({nickName:"", email:"", logueado:false})
   }
-  //las funciones de login y logout son recibidas por props por los componentes iniciarSesion y navbar
-  //que ejecutan el guardado del user en el contexto y localstorage para el login y 
-  //el borrado de ambos en el logout
+  
   if(!user.logueado) {
     return (
       <Routes>
@@ -63,3 +53,16 @@ function App() {
 };
 
 export default App;
+
+/* --Comentarios--
+con useEffect le paso un array vacio de dependencias para q ejecute la funcion cada vez q se
+actualiza la pagina en el navegador y cargue en el useContext el usuario si hay uno logueado en localStorage
+si no mantiene en el estado el q esta por defecto con la propiedad logueado en false, mostrando las rutas que
+corresponden a un user sin sesion iniciada
+
+las funciones de login y logout no las pongo en el contexto ya q son de uso particular
+del navbar con el boton cerrar sesion y de la page iniciar sesion
+las funciones de login y logout son recibidas por props por los componentes iniciarSesion y navbar
+que ejecutan el guardado del user en el contexto y localstorage para el login y 
+el borrado de ambos en el logout
+*/
