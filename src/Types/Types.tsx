@@ -28,3 +28,12 @@ export type logoutProps = {
 export interface Props {
     children:ReactNode
 };
+
+export type inputsLoginType = {
+    controlId:string,
+    label:string,
+    placeholder:string,
+    name:string,
+    onChange:(e:React.ChangeEvent<HTMLInputElement>) => Promise<void>,
+    errores:any
+}

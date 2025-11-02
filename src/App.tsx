@@ -15,7 +15,7 @@ import type { UserLogueadoType } from "./Types/Types";
 
 function App() {
   const {user, setUser} = useContext(UserContext);
-const localStorageUserKey = 'userLogueado';
+  const localStorageUserKey = 'userLogueado';
 
   useEffect(() => {
     const userLogueado = localStorage.getItem(localStorageUserKey);
