@@ -45,6 +45,8 @@ const IniciarSesion = ({login}:loginProps) => {
         }
     },[formulario])
 
+    //diferenciar con un Alert si el error es por el backEnd y el mensaje del fetch
+
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const loginValido = await validateSchema(loginSchema)
