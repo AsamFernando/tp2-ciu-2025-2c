@@ -1,10 +1,10 @@
-import {Button, Form, FloatingLabel, Row, Col, Container, Image} from 'react-bootstrap';
+import {Button, Form, Row, Col, Container, Image} from 'react-bootstrap';
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, Link} from 'react-router-dom';
-import type { loginProps, inputsLoginType} from '../Types/Types';
+import type { loginProps } from '../Types/Types';
 import '../estilos/estilos.css';
 import {loginSchema, inputSchema} from '../schemas/LoginSchema';
-import { getUserByNickName } from '../api/users';
+import { getUserByAttribute } from '../api/users';
 import { FormInput } from '../components';
 
 const IniciarSesion = ({login}:loginProps) => {
@@ -15,7 +15,8 @@ const IniciarSesion = ({login}:loginProps) => {
 
     const handleChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
         const {name} = e.target;
-        setFormulario({...formulario, [name]:e.target.value})
+        const inputSinEspacios = e.target.value.trim()
+        setFormulario({...formulario, [name]:inputSinEspacios})
     };
 
     const validateSchema = async (schema:any) => {
@@ -48,7 +49,7 @@ const IniciarSesion = ({login}:loginProps) => {
         e.preventDefault()
         const loginValido = await validateSchema(loginSchema)
         if(loginValido) {
-            const userFound = await getUserByNickName(formulario.nickName)
+            const userFound = await getUserByAttribute({nickName:formulario.nickName})
             login({...userFound, logueado:true})
             navigate('/home')
             setErrores({})

@@ -18,18 +18,18 @@ function App() {
     localStorage.setItem(localStorageUserKey, JSON.stringify(userLogueado))
     setUser(userLogueado)
   }
-
+  
   const logout = () => {
     localStorage.removeItem(localStorageUserKey)
     setUser({nickName:"", email:"", logueado:false})
   }
-  
+
   if(!user.logueado) {
     return (
       <Routes>
         <Route path="/" element={<IniciarSesion login={login} />} />
         <Route path="/Iniciar Sesion" element={<IniciarSesion login={login} />} />
-        <Route path="/Registro" element={<Registro />} />
+        <Route path="/Registro" element={<Registro login={login} />} />
         <Route path="/*" element={ <Navigate to="/" /> } />
       </Routes>
     );

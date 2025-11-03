@@ -11,6 +11,7 @@ const FormInput = ({controlId, label, errores, ...rest}:inputsLoginType) => {
             >
                 <Form.Control
                     {...rest}
+                    size='sm'
                     type="text"
                     isInvalid={!!errores?.[rest.name]}
                 />

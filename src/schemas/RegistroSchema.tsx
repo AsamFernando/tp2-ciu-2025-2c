@@ -1,29 +1,31 @@
 import * as yup from 'yup';
 import { getUserByAttribute } from '../api/users';
 
-export const loginSchema = yup.object().shape({
+export const registroSchema = yup.object().shape({
     nickName: yup
         .string()
         .required('Debe ingresar un nickName')
         .test(
             'user registrado',
-            "El nickName no se encuentra registrado",
+            "El nickName ya se encuentra registrado",
             async (nickName) => {
                 if(!nickName) return true
                 const userFound = await getUserByAttribute({nickName})
-                return nickName == userFound?.nickName
+                return nickName != userFound?.nickName
             }
         ),
         
-    contraseña: yup
+    email: yup
         .string()
-        .required('Debe ingresar una contraseña')
+        .required('Debe ingresar un email')
+        .email('Debe ingresar un email valido')
         .test(
-            'es-123456',
-            "La contraseña es incorrecta",
-            (password) => {
-                if(password === "") return true
-                return password == '123456'
+            'email registrado',
+            "El email ya se encuentra registrado",
+            async (email) => {
+                if(!email) return true
+                const userFound = await getUserByAttribute({email})
+                return email != userFound?.email
             }
         )
 });
@@ -36,8 +38,9 @@ export const inputSchema = yup.object().shape({
         .max(12, 'El nickName debe tener ${max} caracteres máximo')
         .required('Debe ingresar un nickName'),
         
-    contraseña: yup
+    email: yup
         .string()
         .trim('No puede contener solo espacios')
-        .required('Debe ingresar una contraseña')
+        .required('Debe ingresar un email')
+        .email('Debe ingresar un email valido')
 });
