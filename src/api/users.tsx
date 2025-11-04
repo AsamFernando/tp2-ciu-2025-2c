@@ -5,6 +5,7 @@ export const getUserByAttribute = async (attribute:any) => {
         const response = await fetch('http://localhost:3001/users')
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const users:any = await response.json()
+        console.log(users)
         const attributeKey:string = Object.keys(attribute)[0]
         return users.find((u:any) => u[attributeKey] == attribute[attributeKey])
     }

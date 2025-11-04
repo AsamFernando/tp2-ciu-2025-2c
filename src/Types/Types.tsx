@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 export interface UserContextType {
     user:{
+        id:number,
         nickName:string,
         email:string,
         logueado:boolean
@@ -10,12 +11,19 @@ export interface UserContextType {
 };
 
 export interface UserLogueadoType {
+    id:number,
     nickName:string,
     email:string,
     logueado:boolean
 };
 
 export type userBD = Omit<UserLogueadoType, 'logueado'>
+
+export type postBD = {
+    descripcion:string,
+    userId:number
+    tags:string[]
+}
 
 export type loginProps = {
     login:(userLogueado:UserLogueadoType) => void
@@ -34,6 +42,6 @@ export type inputsLoginType = {
     label:string,
     placeholder:string,
     name:string,
-    onChange:(e:React.ChangeEvent<HTMLInputElement>) => Promise<void>,
+    onChange:(e:React.ChangeEvent<HTMLInputElement>) => void,
     errores:any
 }

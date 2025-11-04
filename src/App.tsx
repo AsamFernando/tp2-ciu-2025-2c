@@ -4,6 +4,7 @@ import {Home, IniciarSesion, Registro, Perfil, Post, Publicar, Publicaciones} fr
 import { useContext, useEffect } from "react";
 import { UserContext } from "./Contexts";
 import type { UserLogueadoType } from "./Types/Types";
+import { userLogueadoDefault } from './Contexts/default/userDefault';
 
 function App() {
   const {user, setUser} = useContext(UserContext);
@@ -21,7 +22,7 @@ function App() {
   
   const logout = () => {
     localStorage.removeItem(localStorageUserKey)
-    setUser({nickName:"", email:"", logueado:false})
+    setUser(userLogueadoDefault)
   }
 
   if(!user.logueado) {

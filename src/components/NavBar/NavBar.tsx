@@ -1,8 +1,10 @@
 import {Container, Nav, Navbar, Button} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom';
 import type { logoutProps } from '../../Types/Types';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 //agregar pagina publicaciones --> hecho
+// poner tooltip q diga crear publicaciones en simbolo +
 
 const NavBar = ({logout}:logoutProps) => {
 
@@ -10,11 +12,12 @@ const NavBar = ({logout}:logoutProps) => {
         {id:1, nombre:'Home', to: '/Home'},
         {id:2, nombre:'Perfil', to: '/Perfil'},
         {id:3, nombre:'Publicaciones', to: '/Publicaciones'},
+        {id:4, nombre:'Publicar', to: '/Publicar'},
     ];
 
     return (
         <Navbar sticky='top' expand="lg" className="bg-body-tertiary">
-            <Container fluid>
+            <Container fluid >
                 <Navbar.Brand as={NavLink} to="/" className="brand">Anti-Social-Network</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -26,7 +29,7 @@ const NavBar = ({logout}:logoutProps) => {
                                 to={s.to}
                                 end
                             >
-                                {s.nombre}
+                                {s.nombre == 'Publicar' ? <i style={{}} className="bi bi-plus-circle fs-4"></i> : s.nombre}
                             </Nav.Link>
                         ))}
                     </Nav>

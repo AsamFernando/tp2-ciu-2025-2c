@@ -8,13 +8,10 @@ import { createUser } from '../api/users';
 import { FormInput } from '../components';
 
 const Registro = ({login}:loginProps) => {
-    const [formulario, setFormulario] = useState<userBD>({nickName:"", email:""})
+    const [formulario, setFormulario] = useState<userBD>({id:0, nickName:"", email:""})
     const [errores, setErrores] = useState<any>({})
     const cambioEnForm = useRef(false);
     const navigate = useNavigate()
-    //con as userBD le digo q el objeto vacio tiene ese tipo
-    //con input as keyof userBd le digo q cada key del objeto vacio va a
-    //coincidir con el tipo de las keys de userBD
 
     const handleChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
         const {name} = e.target;
