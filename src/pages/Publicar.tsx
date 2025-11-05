@@ -157,6 +157,8 @@ const Publicar = () => {
     //mensaje de creacion exitosa o de error con Alert de bootstrap
     //si fue exitosa y redirigir al post
     //en registro mostrar mensaje de usuario creado con exito
+    //refactorizar Publicar
+    //borrar funciones y comentarios q no sirven y dependencias q no se usan
     
     //Poner el boton al lado del input
     const propsInputsPost = [
