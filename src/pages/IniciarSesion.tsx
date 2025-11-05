@@ -69,9 +69,11 @@ const IniciarSesion = ({login}:loginProps) => {
                 <Row className='align-items-center'>
                     <Col className='align-items-center'>
                         <Image style={{marginBottom:'1.5rem', marginTop:'1.5rem'}} height={300} width={400} src="../src/assets/Anti-Social-Net-gta.png" rounded fluid/>
-                            <Form.Group className="mb-2" controlId="formLogin">
-                                {propsInputsLogin.map((props, i) => <FormInput key={i} {...props} />)}
+                                {propsInputsLogin.map((props, i) => (
+                            <Form.Group className="mb-2" controlId={props.controlId}>
+                                    <FormInput key={i} {...props} />
                             </Form.Group>
+                                    ))}
                         <Button variant="warning" type="submit" className='w-100' style={{fontWeight:'bold'}}>
                             Iniciar Sesion
                         </Button>
