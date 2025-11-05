@@ -16,7 +16,7 @@ const createImage = async (url:string, postId:number) => {
         return error
     }
 }
-const createImages = async (images:string[], postId:number) => {
+export const createImages = async (images:string[], postId:number) => {
     try {
         return await Promise.all(images.map((i) => createImage(i, postId)))
     }
@@ -38,6 +38,20 @@ export const createPost = async (postAttributes:any) => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const newPost:any = await response.json()
         return newPost
+    }
+    catch (error:any) {
+        console.log("Error del servidor: ", error.message)
+        return false
+    }
+};
+
+export const getPostById = async (id:number) => {
+    try {
+        const response = await fetch(`http://localhost:3001/posts/${id}`)
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const post:any = await response.json()
+        console.log(post)
+        return post
     }
     catch (error:any) {
         console.log("Error del servidor: ", error.message)

@@ -3,11 +3,12 @@ import { useEffect, useState, useRef, useContext } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import type {postBD, handleClickPropsType} from '../Types/Types';
 import '../estilos/estilos.css';
-import { descripcionUrlSchema, imagenSchema} from '../schemas/PublicarSchema';
+import { descripcionSchema, descripcionUrlSchema, imagenSchema} from '../schemas/PublicarSchema';
 import { FormInput, MostrarTags, MostrarImagenes} from '../components';
 import { UserContext } from '../Contexts';
 import tagsContext from '../Contexts/TagsContext';
 import { getTags } from '../api/tags';
+import { createImages, createPost, getPostById } from '../api/posts';
 
 const Publicar = () => {
     const {tags, setTags} = useContext(tagsContext)
@@ -109,20 +110,57 @@ const Publicar = () => {
         console.log(tagIds)//borrar
     }
 
+    const crearPost = async () => {
+        try {
+            const newPost = await createPost({description:descripcion, userId:user.id, tagIds})
+            return newPost
+        } 
+        catch (error) {
+            return console.log('Ocurrio un error:', error)
+        }
+    }
+    const crearImagenes = async (id:number) => {
+        try {
+            const newImages = await createImages(urls, id)
+            return newImages
+        } 
+        catch (error) {
+            return console.log('Ocurrio un error:', error)
+        }
+    }
+
+    const crearPostSiDescripcionValida = async () => {
+        const descripcionValida = await validateSchema(descripcionSchema, {descripcion})
+        if(descripcionValida)
+            return await crearPost();
+    }
+    const crearImagenesSiHay = async (id:number) => {
+        const descripcionValida = await validateSchema(descripcionSchema, {descripcion})
+        if(urls.length > 0)
+            return await crearImagenes(id);
+    }
+
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        
-        // if(userValido) {
-        //     const userCreated = await createUser(formulario)
-        //     //login({...userCreated, logueado:true})
-        //     navigate('/Perfil')
-        //     setErrores({})
-        // }
+        try {
+            
+        } catch (error) {
+            
+        }
+        const {id} = await crearPostSiDescripcionValida()
+        const newImages = await crearImagenesSiHay(id)
+        const newPostCompleto = await getPostById(id)
+        console.log(newPostCompleto)
+        return newPostCompleto
     };
+
+    //mensaje de creacion exitosa o de error con Alert de bootstrap
+    //si fue exitosa y redirigir al post
+    //en registro mostrar mensaje de usuario creado con exito
     
     //Poner el boton al lado del input
     const propsInputsPost = [
-        {controlId:"floatingInputDescripcion", label:"Ingresa la descripcion", placeholder:"Ingresa la descripcion", name:'descripcion', onChange:(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e); handleDescripcion(e);}, onClick:()=>{}, errores},
+        {controlId:"floatingInputDescripcion", label:"Ingresa la descripcion", placeholder:"Ingresa la descripcion", name:'descripcion', onChange:(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e); handleDescripcion(e);}, errores},
         {controlId:"floatingInputUrls", label:"Ingresa la url de la imagen", placeholder:"Ingresa la url de la imagen", name:'url', onChange:(e:React.ChangeEvent<HTMLInputElement>) => {handleChange(e); handleUrl(e);}, onClick:() => {handleCargarImagen()}, errores},
     ];
 

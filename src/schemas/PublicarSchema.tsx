@@ -1,13 +1,13 @@
 import * as yup from 'yup';
 
-// export const descripcionSchema = yup.object().shape({
-//     descripcion: yup
-//         .string()
-//         .trim('No puede contener solo espacios')
-//         .min(2, 'La descripcion debe tener ${min} caracteres como minimo')
-//         .max(10, 'La descripcion debe tener ${max} caracteres máximo')
-//         .required('Debe ingresar una descripcion')
-// });
+export const descripcionSchema = yup.object().shape({
+    descripcion: yup
+        .string()
+        .trim('No puede contener solo espacios')
+        .min(2, 'La descripcion debe tener ${min} caracteres como minimo')
+        .max(10, 'La descripcion debe tener ${max} caracteres máximo')
+        .required('Debe ingresar una descripcion')
+});
 
 export const imagenSchema = yup.object().shape({
     url: yup

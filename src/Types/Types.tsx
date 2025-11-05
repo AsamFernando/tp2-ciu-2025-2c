@@ -54,14 +54,14 @@ export interface Props {
     children:ReactNode
 };
 
-export type inputsLoginType = {
+export interface inputsLoginType {
     controlId:string,
     label:string,
     placeholder:string,
     name:string,
     onChange:(e:React.ChangeEvent<HTMLInputElement>) => void,
-    onClick:() => void
     errores:any
+    onClick?:() => void
 }
 
 export type tagSeleccionadoType = {
