@@ -1,6 +1,6 @@
 import { Layout } from './components';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import {Home, IniciarSesion, Registro, Perfil, PostDetalle, Publicar, Publicaciones} from './pages';
+import {Home, IniciarSesion, Registro, Perfil, PostDetalle, Publicar} from './pages';
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./Contexts";
 import type { UserLogueadoType } from "./Types/Types";
@@ -52,7 +52,6 @@ function App() {
           <Route path="/Perfil" element={<Perfil verDetallePost={verDetallePost}/>} />
           <Route path="/Post" element={<PostDetalle post={postDetalle} />} />
           <Route path="/Publicar" element={<Publicar />} />
-          <Route path="/Publicaciones" element={<Publicaciones />} />
           <Route path="/*" element={ <Navigate to="/" /> } />
         </Route>
       </Routes>
