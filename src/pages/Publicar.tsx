@@ -1,4 +1,4 @@
-import {Button, Form, Row, Col, Container} from 'react-bootstrap';
+import {Button, Form, Row, Col, Container, Alert} from 'react-bootstrap';
 import { useEffect, useState, useRef, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import type {handleClickPropsType} from '../Types/Types';
@@ -107,7 +107,8 @@ const Publicar = () => {
             return newPost
         } 
         catch (error) {
-            return console.log('Ocurrio un error:', error)
+            console.log('Ocurrio un error:')
+            return error
         }
     }
     const crearImagenes = async (id:number) => {
@@ -116,7 +117,8 @@ const Publicar = () => {
             return newImages
         } 
         catch (error) {
-            return console.log('Ocurrio un error:', error)
+            console.log('Ocurrio un error:')
+            return error
         }
     }
 
@@ -134,15 +136,14 @@ const Publicar = () => {
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            
+            const {id} = await crearPostSiDescripcionValida()
+            await crearImagenesSiHay(id)
+            const newPostCompleto = await getPostById(id)
+            console.log(newPostCompleto)
+            return newPostCompleto
         } catch (error) {
-            
+            return console.log('Ocurrio un error:', error)
         }
-        const {id} = await crearPostSiDescripcionValida()
-        await crearImagenesSiHay(id)
-        const newPostCompleto = await getPostById(id)
-        console.log(newPostCompleto)
-        return newPostCompleto
     };
 
     //mensaje de creacion exitosa o de error con Alert de bootstrap
