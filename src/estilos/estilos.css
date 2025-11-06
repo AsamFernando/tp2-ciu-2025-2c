@@ -1,15 +1,12 @@
-/* Responsive helpers */
 img, .img-fluid {
 	max-width: 100%;
 	height: auto;
 }
 
-/* Ensure bootstrap containers don't overflow on very small screens */
 main {
 	padding: 1rem;
 }
 
-/* Small tweaks for post list/cards */
 .post-card {
 	width: 100%;
 }
