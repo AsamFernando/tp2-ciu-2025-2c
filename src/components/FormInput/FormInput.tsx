@@ -1,7 +1,7 @@
 import {Form, Button} from 'react-bootstrap';
 import type { inputsLoginType} from '../../Types/Types';
 
-const imagenesBtn = (nombreInput:string, onClick:any) => {
+const imagenesBtn = (nombreInput:string, onClick:(() => void) | undefined) => {
     if(nombreInput == 'url') {
         return (
             <Button

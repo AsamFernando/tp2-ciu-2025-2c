@@ -16,7 +16,7 @@ const MostrarImagenes = ({urls, handleClick}:{urls:string[], handleClick:(urlBor
     return (
         urls.length > 0 ?
             <ListGroup variant="flush" style={{margin:'3rem'}}>
-                {urls.map((url:string, i:any) => (
+                {urls.map((url:string, i:number) => (
                     <ListGroup.Item
                         key={i}
                         className="d-flex justify-content-between"

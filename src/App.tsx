@@ -1,15 +1,23 @@
 import { Layout } from './components';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import {Home, IniciarSesion, Registro, Perfil, Post, Publicar, Publicaciones} from './pages';
-import { useContext, useEffect } from "react";
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import {Home, IniciarSesion, Registro, Perfil, PostDetalle, Publicar} from './pages';
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./Contexts";
-import type { UserLogueadoType } from "./Types/Types";
+import type { postBDType, UserLogueadoType, verDetallePostType } from "./Types/Types";
 import { userLogueadoDefault } from './Contexts/default/userDefault';
+import { defaultPostBD } from './Contexts/default/postDefault';
 
 function App() {
   const {user, setUser} = useContext(UserContext);
   const localStorageUserKey = 'userLogueado';
+  const [postDetalle, setPostDetalle] = useState<postBDType>(defaultPostBD)
+  const navigate = useNavigate()
 
+  const verDetallePost:verDetallePostType = (post):void => {
+    setPostDetalle(post)
+    navigate('/Post')
+  }
+  
   useEffect(() => {
     const userLogueado = localStorage.getItem(localStorageUserKey);
     if(userLogueado) setUser(JSON.parse(userLogueado))
@@ -40,12 +48,11 @@ function App() {
     <>
       <Routes>
         <Route element={<Layout logout={logout} />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/Home" element={<Home />} />
-          <Route path="/Perfil" element={<Perfil />} />
-          <Route path="/Post" element={<Post />} />
+          <Route path="/" element={<Home verDetallePost={verDetallePost} />} />
+          <Route path="/Home" element={<Home verDetallePost={verDetallePost} />} />
+          <Route path="/Perfil" element={<Perfil verDetallePost={verDetallePost}/>} />
+          <Route path="/Post" element={<PostDetalle post={postDetalle} />} />
           <Route path="/Publicar" element={<Publicar />} />
-          <Route path="/Publicaciones" element={<Publicaciones />} />
           <Route path="/*" element={ <Navigate to="/" /> } />
         </Route>
       </Routes>

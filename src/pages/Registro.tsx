@@ -1,6 +1,6 @@
 import {Button, Form, Row, Col, Container, Image, Spinner, Alert} from 'react-bootstrap';
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import type { loginProps, userBD} from '../Types/Types';
 import '../estilos/estilos.css';
 import {registroSchema, inputSchema} from '../schemas/RegistroSchema';

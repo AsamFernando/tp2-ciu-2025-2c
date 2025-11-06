@@ -1,7 +1,7 @@
-import {Button, Form, Row, Col, Container} from 'react-bootstrap';
+import {Button, Form, Row, Col, Container, Alert} from 'react-bootstrap';
 import { useEffect, useState, useRef, useContext } from "react";
-import { useNavigate, Link } from 'react-router-dom';
-import type {postBD, handleClickPropsType} from '../Types/Types';
+import { useNavigate } from 'react-router-dom';
+import type {handleClickPropsType} from '../Types/Types';
 import '../estilos/estilos.css';
 import { descripcionSchema, descripcionUrlSchema, imagenSchema} from '../schemas/PublicarSchema';
 import { FormInput, MostrarTags, MostrarImagenes} from '../components';
@@ -11,9 +11,8 @@ import { getTags } from '../api/tags';
 import { createImages, createPost, getPostById } from '../api/posts';
 
 const Publicar = () => {
-    const {tags, setTags} = useContext(tagsContext)
+    const {setTags} = useContext(tagsContext)
     const {user} = useContext(UserContext)
-    const [formulario, setFormulario] = useState<postBD>({descripcion:"", userId:user.id, tags:[]})
     const [descripcionUrl, setDescripcionUrl] = useState<{descripcion:string, url:string}>({descripcion:"", url:""})
     const [tagIds, setTagIds] = useState<number[]>([])
     const [url, setUrl] = useState<string>("")
@@ -35,14 +34,6 @@ const Publicar = () => {
         const {name} = e.target;
         const inputSinEspacios = e.target.value.trim()
         setDescripcionUrl({...descripcionUrl, [name]:inputSinEspacios})
-    };
-
-    
-    const handleChangeArray = async (e:React.ChangeEvent<HTMLInputElement>) => {
-        // const {name} = e.target;
-        // const key = name as keyof postBD;
-        // const inputSinEspacios = e.target.value.trim()
-        // setFormulario({...formulario, [key]:[...formulario[key], inputSinEspacios]})
     };
 
     //ver tipo de schema y de estado
@@ -116,7 +107,8 @@ const Publicar = () => {
             return newPost
         } 
         catch (error) {
-            return console.log('Ocurrio un error:', error)
+            console.log('Ocurrio un error:')
+            return error
         }
     }
     const crearImagenes = async (id:number) => {
@@ -125,7 +117,8 @@ const Publicar = () => {
             return newImages
         } 
         catch (error) {
-            return console.log('Ocurrio un error:', error)
+            console.log('Ocurrio un error:')
+            return error
         }
     }
 
@@ -135,7 +128,7 @@ const Publicar = () => {
             return await crearPost();
     }
     const crearImagenesSiHay = async (id:number) => {
-        const descripcionValida = await validateSchema(descripcionSchema, {descripcion})
+        await validateSchema(descripcionSchema, {descripcion})
         if(urls.length > 0)
             return await crearImagenes(id);
     }
@@ -143,20 +136,21 @@ const Publicar = () => {
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            
+            const {id} = await crearPostSiDescripcionValida()
+            await crearImagenesSiHay(id)
+            const newPostCompleto = await getPostById(id)
+            console.log(newPostCompleto)
+            return newPostCompleto
         } catch (error) {
-            
+            return console.log('Ocurrio un error:', error)
         }
-        const {id} = await crearPostSiDescripcionValida()
-        const newImages = await crearImagenesSiHay(id)
-        const newPostCompleto = await getPostById(id)
-        console.log(newPostCompleto)
-        return newPostCompleto
     };
 
     //mensaje de creacion exitosa o de error con Alert de bootstrap
     //si fue exitosa y redirigir al post
     //en registro mostrar mensaje de usuario creado con exito
+    //refactorizar Publicar
+    //borrar funciones y comentarios q no sirven y dependencias q no se usan
     
     //Poner el boton al lado del input
     const propsInputsPost = [

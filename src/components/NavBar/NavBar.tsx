@@ -5,14 +5,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 //agregar pagina publicaciones --> hecho
 // poner tooltip q diga crear publicaciones en simbolo +
+//poner los enlaces como tabs
 
 const NavBar = ({logout}:logoutProps) => {
 
     const secciones: {id:number, nombre:string, to:string}[] = [
         {id:1, nombre:'Home', to: '/Home'},
         {id:2, nombre:'Perfil', to: '/Perfil'},
-        {id:3, nombre:'Publicaciones', to: '/Publicaciones'},
-        {id:4, nombre:'Publicar', to: '/Publicar'},
+        {id:3, nombre:'Publicar', to: '/Publicar'},
     ];
 
     return (
@@ -29,7 +29,7 @@ const NavBar = ({logout}:logoutProps) => {
                                 to={s.to}
                                 end
                             >
-                                {s.nombre == 'Publicar' ? <i style={{}} className="bi bi-plus-circle fs-4"></i> : s.nombre}
+                                {s.nombre}
                             </Nav.Link>
                         ))}
                     </Nav>
