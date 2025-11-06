@@ -3,8 +3,15 @@ import { useEffect, useState } from 'react';
 import { getPostImages } from '../../api/images';
 import { getPostComments } from '../../api/comments';
 import type { imageBDType, postBDType, verDetallePostType, commentBDType } from '../../Types/Types';
+import type { Dispatch, SetStateAction } from 'react'; // 🟢 agregado
 
-const Post = ({post, verDetallePost}:{post:postBDType, verDetallePost:verDetallePostType}) => {
+// 🟢 nuevo tipo que incluye setPosts opcional
+type PostProps = {
+  post: postBDType,
+  verDetallePost: verDetallePostType,
+  setPosts?: Dispatch<SetStateAction<postBDType[]>>
+}
+const Post = ({post, verDetallePost, setPosts}:PostProps) => {
     const [images, setImages] = useState<imageBDType[]>([])
     const [comments, setComments] = useState<commentBDType[]>([])
 
@@ -35,18 +42,18 @@ const Post = ({post, verDetallePost}:{post:postBDType, verDetallePost:verDetalle
             setImages(postImages)
         }
         cargaImages();
-    },[])
+    },[post.id])
     useEffect(() => {
         const cargaComments = async () => {
             const postComments = await getComments()
             setComments(postComments)
         }
         cargaComments();
-    },[])
+    },[post.id])
 
     //copiar estilos de hover de tp1 ${styles.cardHover}
     //accion boton lleva a ver el detalle de cada post con el id del post cargo los datos en la page Post
-    return <PostPerfil post={post} accionBtn={verDetallePost} images={images} comments={comments} />
+    return <PostPerfil post={post} accionBtn={verDetallePost} images={images} comments={comments} setPosts={setPosts}/>
 };
 
 export default Post;
