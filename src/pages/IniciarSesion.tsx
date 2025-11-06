@@ -1,4 +1,4 @@
-import {Button, Form, Row, Col, Container, Image} from 'react-bootstrap';
+import {Button, Form, Row, Col, Container, Image, Spinner, Alert} from 'react-bootstrap';
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, Link} from 'react-router-dom';
 import type { loginProps } from '../Types/Types';
@@ -47,14 +47,29 @@ const IniciarSesion = ({login}:loginProps) => {
 
     //diferenciar con un Alert si el error es por el backEnd y el mensaje del fetch
 
+    const [submitting, setSubmitting] = useState(false);
+
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const loginValido = await validateSchema(loginSchema)
-        if(loginValido) {
-            const userFound = await getUserByAttribute({nickName:formulario.nickName})
-            login({...userFound, logueado:true})
-            navigate('/home')
-            setErrores({})
+        setSubmitting(true)
+        try {
+            const loginValido = await validateSchema(loginSchema)
+            if(loginValido) {
+                const userFound = await getUserByAttribute({nickName:formulario.nickName})
+                if (!userFound) {
+                    setErrores({auth: 'Usuario no encontrado. Verifica el servidor o el nick.'})
+                    return
+                }
+                login({...userFound, logueado:true})
+                navigate('/home')
+                setErrores({})
+            }
+        }
+        catch(err:any){
+            setErrores({auth: err.message ?? 'Error desconocido'})
+        }
+        finally{
+            setSubmitting(false)
         }
     };
 
@@ -68,14 +83,15 @@ const IniciarSesion = ({login}:loginProps) => {
             <Container fluid className='min-vh-100 d-flex justify-content-center align-items-center'>
                 <Row className='align-items-center'>
                     <Col className='align-items-center'>
-                        <Image style={{marginBottom:'1.5rem', marginTop:'1.5rem'}} height={300} width={400} src="../src/assets/Anti-Social-Net-gta.png" rounded fluid/>
+                        <Image style={{marginBottom:'1.5rem', marginTop:'1.5rem', maxWidth: '400px', width: '100%'}} src="../src/assets/Anti-Social-Net-gta.png" rounded fluid/>
                                 {propsInputsLogin.map((props, i) => (
                             <Form.Group className="mb-2" controlId={props.controlId}>
                                     <FormInput key={i} {...props} />
                             </Form.Group>
                                     ))}
-                        <Button variant="warning" type="submit" className='w-100' style={{fontWeight:'bold'}}>
-                            Iniciar Sesion
+                        {errores?.auth && <Alert variant='danger'>{errores.auth}</Alert>}
+                        <Button variant="warning" type="submit" className='w-100' style={{fontWeight:'bold'}} disabled={submitting}>
+                            {submitting ? (<><Spinner animation="border" size="sm"/> Iniciando...</>) : 'Iniciar Sesion'}
                         </Button>
                         <p style={{marginTop:'1rem'}}>No tenes una cuenta? {<Link to='/Registro'>Registrate acá</Link>}</p>
                     </Col>

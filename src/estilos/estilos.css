@@ -1,0 +1,24 @@
+/* Responsive helpers */
+img, .img-fluid {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Ensure bootstrap containers don't overflow on very small screens */
+main {
+	padding: 1rem;
+}
+
+/* Small tweaks for post list/cards */
+.post-card {
+	width: 100%;
+}
+
+@media (min-width: 576px) {
+	.post-card { max-width: 540px; }
+}
+
+@media (min-width: 768px) {
+	.post-card { max-width: 720px; }
+}
+

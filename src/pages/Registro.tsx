@@ -1,6 +1,6 @@
-import {Button, Form, Row, Col, Container, Image} from 'react-bootstrap';
+import {Button, Form, Row, Col, Container, Image, Spinner, Alert} from 'react-bootstrap';
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import type { loginProps, userBD} from '../Types/Types';
 import '../estilos/estilos.css';
 import {registroSchema, inputSchema} from '../schemas/RegistroSchema';
@@ -45,14 +45,29 @@ const Registro = ({login}:loginProps) => {
         }
     },[formulario])
 
+    const [submitting, setSubmitting] = useState(false);
+
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const userValido = await validateSchema(registroSchema)
-        if(userValido) {
-            const userCreated = await createUser(formulario)
-            login({...userCreated, logueado:true})
-            navigate('/Perfil')
-            setErrores({})
+        setSubmitting(true)
+        try {
+            const userValido = await validateSchema(registroSchema)
+            if(userValido) {
+                const userCreated = await createUser(formulario)
+                if (!userCreated) {
+                    setErrores({auth: 'No se pudo crear el usuario. Verifica el servidor.'})
+                    return
+                }
+                login({...userCreated, logueado:true})
+                navigate('/Perfil')
+                setErrores({})
+            }
+        }
+        catch(err:any){
+            setErrores({auth: err.message ?? 'Error desconocido'})
+        }
+        finally{
+            setSubmitting(false)
         }
     };
 
@@ -66,12 +81,13 @@ const Registro = ({login}:loginProps) => {
             <Container fluid className='min-vh-100 d-flex justify-content-center align-items-center'>
                 <Row className='align-items-center'>
                     <Col className='align-items-center'>
-                        <Image style={{marginBottom:'1.5rem', marginTop:'1.5rem'}} height={300} width={400} src="../src/assets/Anti-Social-Net-gta.png" rounded fluid/>
+                        <Image style={{marginBottom:'1.5rem', marginTop:'1.5rem', maxWidth: '400px', width: '100%'}} src="../src/assets/Anti-Social-Net-gta.png" rounded fluid/>
                             <Form.Group className="mb-2" controlId="formRegister">
                                 {propsInputsRegister.map((props, i) => <FormInput key={i} {...props} />)}
                             </Form.Group>
-                        <Button variant="success" type="submit" className='w-100' style={{fontWeight:'bold'}}>
-                            Crear Cuenta
+                        {errores?.auth && <Alert variant='danger'>{errores.auth}</Alert>}
+                        <Button variant="success" type="submit" className='w-100' style={{fontWeight:'bold'}} disabled={submitting}>
+                            {submitting ? (<><Spinner animation="border" size="sm"/> Creando...</>) : 'Crear Cuenta'}
                         </Button>
                     </Col>
                 </Row>
