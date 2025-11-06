@@ -1,6 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
+import type { imageBDType } from '../../Types/Types';
 
-function CarouselPostImages({images}:{images:any[]}) {
+function CarouselPostImages({images}:{images:imageBDType[]}) {
 
   return (
     <Carousel data-bs-theme="light">
@@ -9,10 +10,6 @@ function CarouselPostImages({images}:{images:any[]}) {
                 <div className="align-items-center justify-content-center w-100" style={{margin:'3rem', padding:'3rem'}} >
                     {image.url}
                 </div>
-                {/* <Carousel.Caption>
-                    <h5>First slide label</h5>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </Carousel.Caption> */}
             </Carousel.Item>
         ))}
     </Carousel>

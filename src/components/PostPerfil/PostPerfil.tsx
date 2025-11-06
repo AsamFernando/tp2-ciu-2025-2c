@@ -2,15 +2,16 @@ import {Card, ListGroup, Badge, Button, Container} from 'react-bootstrap'
 import {CarouselPostImages} from '../../components';
 import { useContext } from 'react';
 import { UserContext } from '../../Contexts';
+import type { TagType, PostPerfilPropsTypes } from '../../Types/Types';
 
-const PostPerfil = ({post, images, comments, accionBtn}:any) => {
+const PostPerfil = ({post, images, comments, accionBtn}:PostPerfilPropsTypes) => {
     const {user} = useContext(UserContext)
     const {description, Tags, UserId, User} = post
     const cantidadComments = comments.length
     
     const mostrarTags = () => {
         return (
-            Tags.map((tag:any, i:any) => (
+            Tags.map((tag:TagType, i:number) => (
                 <Badge
                     key={i}
                     pill

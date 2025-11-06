@@ -3,12 +3,13 @@ import { UserContext } from "../Contexts";
 import { getUserPosts } from "../api/posts";
 import { Col, Container, Row } from "react-bootstrap";
 import { Post } from "../components";
+import type { postBDType, verDetallePostType } from "../Types/Types";
 
 //mostrar las publicacion cada una en todo el ancho dela pantalla
 
-const Perfil = ({verDetallePost}:any) => {
+const Perfil = ({verDetallePost}:{verDetallePost:verDetallePostType}) => {
     const {user} = useContext(UserContext);
-    const [posts, setPosts] = useState<any[]>([])
+    const [posts, setPosts] = useState<postBDType[]>([])
 
     const getPosts = async () => {
         try {

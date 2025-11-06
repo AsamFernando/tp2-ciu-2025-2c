@@ -10,18 +10,9 @@ export interface UserContextType {
     setUser:React.Dispatch<React.SetStateAction<UserLogueadoType>>;
 };
 
-export type TagType = {
-    id:number,
-    name:string
-}
-
 export interface TagsContextType {
     tags:TagType[]
     setTags:React.Dispatch<React.SetStateAction<TagType[]>>;
-};
-
-export interface TagsBDType {
-    tags:TagType[]
 };
 
 export interface UserLogueadoType {
@@ -82,4 +73,73 @@ export type handleClickType = {
 
 export type showSelectedTags = {
     selectedTags: TagType[]
+}
+
+export type TagType = {
+    id:number,
+    name:string
+};
+
+export interface TagsBDType {
+    tags:TagType[]
+};
+
+export type UserBDType = {
+    nickName:string,
+    id:number,
+    email:string
+};
+//tipos de Post
+//---------------------//
+
+export interface postBDType {
+    Tags:TagType[],
+    User:UserBDType,
+    UserId:number,
+    description:string,
+    id:number
+}
+
+export type verDetallePostType = (post:postBDType) => void
+
+export type PostPerfilPropsTypes = {
+    post:postBDType,
+    images:imageBDType[],
+    comments:commentBDType[],
+    accionBtn:verDetallePostType
+}
+
+export type PostCompletoPropsType = {
+    postId:number,
+    description:string,
+    Tags:TagType[],
+    images:imageBDType[],
+    comments:commentBDType[]
+}
+
+export type AgregarCommentPropsType = {
+    handleSubmit:(e:React.FormEvent<HTMLFormElement>) => void,
+    label:string,
+    errores:any,
+    placeholder:string,
+    name:string,
+    onChange:(e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+//tipos de Image
+//--------------------//
+
+export type imageBDType = {
+    id:number,
+    url:string,
+    postId:number
+}
+
+//tipos de Comment
+//-------------------//
+export type commentBDType = {
+    id:number,
+    content:string,
+    PostId:number,
+    UserId:number
 }

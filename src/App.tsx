@@ -3,16 +3,17 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import {Home, IniciarSesion, Registro, Perfil, PostDetalle, Publicar} from './pages';
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./Contexts";
-import type { UserLogueadoType } from "./Types/Types";
+import type { postBDType, UserLogueadoType, verDetallePostType } from "./Types/Types";
 import { userLogueadoDefault } from './Contexts/default/userDefault';
+import { defaultPostBD } from './Contexts/default/postDefault';
 
 function App() {
   const {user, setUser} = useContext(UserContext);
   const localStorageUserKey = 'userLogueado';
-  const [postDetalle, setPostDetalle] = useState<any>({})
+  const [postDetalle, setPostDetalle] = useState<postBDType>(defaultPostBD)
   const navigate = useNavigate()
 
-  const verDetallePost = (post:any) => {
+  const verDetallePost:verDetallePostType = (post):void => {
     setPostDetalle(post)
     navigate('/Post')
   }

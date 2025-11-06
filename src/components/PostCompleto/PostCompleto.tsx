@@ -4,9 +4,9 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { UserContext } from '../../Contexts';
 import { commentSchema } from '../../schemas/CommentSchema';
 import { createComment } from '../../api/comments';
-import { useNavigate } from 'react-router-dom';
+import type { commentBDType, PostCompletoPropsType, TagType, AgregarCommentPropsType } from '../../Types/Types';
 
-const AgregarComment = ({handleSubmit, label, errores, ...rest}:any) => {
+const AgregarComment = ({handleSubmit, label, errores, ...rest}:AgregarCommentPropsType) => {
     return (
         <div className="form-floating text-align-center mb-3">
                 <br />
@@ -14,7 +14,7 @@ const AgregarComment = ({handleSubmit, label, errores, ...rest}:any) => {
                     <Form.Group className="mb-2" controlId="formComment">
                         <Form.Control
                             {...rest}
-                            size='md'
+                            size='sm'
                             type="text"
                             isInvalid={!!errores?.[rest.name]}
                             />
@@ -23,7 +23,7 @@ const AgregarComment = ({handleSubmit, label, errores, ...rest}:any) => {
                             {errores?.[rest.name]}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Button onClick={handleSubmit} size='sm'>
+                    <Button type="submit" size='sm'>
                         Publicar
                     </Button>
                 </Form>
@@ -31,13 +31,12 @@ const AgregarComment = ({handleSubmit, label, errores, ...rest}:any) => {
     )
 }
 
-const PostCompleto = ({postId, description, Tags, images, comments}:any) => {
+const PostCompleto = ({postId, description, Tags, images, comments}:PostCompletoPropsType) => {
     const {user} = useContext(UserContext)
-    const [comentarioNuevo, setComentarioNuevo] = useState<any>("")
+    const [comentarioNuevo, setComentarioNuevo] = useState<string>("")
     const [errores, setErrores] = useState<any>({})
     const cambioEnForm = useRef(false);
     const cantidadComments = comments.length
-    const navigate = useNavigate()
 
     const validateSchema = async (schema:any) => {
         try {
@@ -78,7 +77,7 @@ const PostCompleto = ({postId, description, Tags, images, comments}:any) => {
     const mostrarTags = () => {
         console.log(Tags)
         return (
-            Tags.map((tag:any, i:any) => (
+            Tags.map((tag:TagType, i:number) => (
                 <Badge
                     key={i}
                     pill
@@ -91,7 +90,7 @@ const PostCompleto = ({postId, description, Tags, images, comments}:any) => {
         )
     }
 
-    const handleChange = (e:any) => {
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         const inputSinEspacios = e.target.value.trim()
         setComentarioNuevo(inputSinEspacios)
     }
@@ -133,7 +132,7 @@ const PostCompleto = ({postId, description, Tags, images, comments}:any) => {
                         <ListGroup.Item>
                             {`${cantidadComments} Comentario${cantidadComments>1?'s':''} `}
                         </ListGroup.Item>
-                        {comments.map((comment:any, i:number) => (
+                        {comments.map((comment:commentBDType, i:number) => (
                             <ListGroup.Item key={i}>
                                 {comment.content}
                             </ListGroup.Item>

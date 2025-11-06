@@ -1,8 +1,10 @@
+import type { commentBDType } from "../Types/Types";
+
 export const getPostComments = async (id:number) => {
     try {
         const response = await fetch(`http://localhost:3001/comments/post/${id}`)
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const comments:any = await response.json()
+        const comments:commentBDType = await response.json()
         console.log(comments)
         return comments
     }
@@ -12,7 +14,7 @@ export const getPostComments = async (id:number) => {
     }
 };
 
-export const createComment = async (commentAttributes:any) => {
+export const createComment = async (commentAttributes:{content:string, userId:number, postId:number}) => {
     try {
         const response = await fetch('http://localhost:3001/comments', {
             method:"POST",
@@ -22,11 +24,11 @@ export const createComment = async (commentAttributes:any) => {
             body:JSON.stringify(commentAttributes),
         })
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const newComment:any = await response.json()
+        const newComment:commentBDType = await response.json()
         return newComment
     }
     catch (error:any) {
         console.log("Error del servidor: ", error.message)
-        return false
+        return error
     }
 };

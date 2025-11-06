@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { PostCompleto } from '../components'
 import { getPostComments } from "../api/comments";
 import { getPostImages } from "../api/images";
+import type { commentBDType, imageBDType, postBDType } from "../Types/Types";
 
-const PostDetalle = ({post}:any) => {
-    const [images, setImages] = useState<any[]>([])
-    const [comments, setComments] = useState<any[]>([])
+const PostDetalle = ({post}:{post:postBDType}) => {
+    const [images, setImages] = useState<imageBDType[]>([])
+    const [comments, setComments] = useState<commentBDType[]>([])
     const {id, description, Tags} = post
 
     //hacer una funcion generica

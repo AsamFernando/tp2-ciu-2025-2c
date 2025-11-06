@@ -1,14 +1,14 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../Contexts";
 import { Container, Row, Col } from "react-bootstrap";
 import { Post } from "../components";
 import { getPosts } from "../api/posts";
+import type { postBDType, verDetallePostType } from "../Types/Types";
 
 
-const Home = ({verDetallePost}:any) => {
+const Home = ({verDetallePost}:{verDetallePost:verDetallePostType}) => {
     const {user} = useContext(UserContext);
-    const [posts, setPosts] = useState<any[]>([])
-    const cambioEnForm = useRef(false);
+    const [posts, setPosts] = useState<postBDType[]>([])
 
     const getOthersPosts = async () => {
         try {
