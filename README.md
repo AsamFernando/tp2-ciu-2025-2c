@@ -32,15 +32,10 @@ en cada una para ver su detalle asi como las propias.
 
 **Home**:
 
-La página de Inicio busca ser una presentación atractiva de Luna & Granos Café, diseñada para captar la atención del visitante desde el primer momento. Tiene como objetivo transmitir la identidad de la cafetería  invitando al usuario a descubrir la carta y conocer más sobre la historia y los valores del local.
+En la sección Home los usuarios pueden:
 
-Funcionalidades y secciones:
-
-. Hero principal: muestra el nombre del café, un eslogan y un botón que dirige directamente a la carta.
-. Sección “Quiénes Somos”: breve descripción de la filosofía del lugar acompañada por una galería de imágenes que muestran el interior y ambiente del café.
-. Nuestra Historia: relato sobre el origen familiar y la inspiración italiana detrás del emprendimiento, destacando la calidad y tradición en cada taza.
-. Valores: tres pilares que resumen la propuesta del café (café de especialidad, pastelería artesanal y conexión con lo natural).
-. Concenos: invitación a visitar el local con un mapa interactivo de Google Maps que facilita la ubicación.
+- Ver las publicaciones recientes de otros usuarios
+- Acceder al detalle de dichas publicaciones
 
 **Perfil**:
 
