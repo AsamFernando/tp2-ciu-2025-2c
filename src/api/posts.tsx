@@ -59,7 +59,7 @@ export const getPostById = async (id:number) => {
     }
 };
 
-export const getUserPosts = async (id:number) => {
+export const getUserPosts = async (id?:number) => {
     try {
         const response = await fetch(`http://localhost:3001/posts?userId=${id}`)
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -70,6 +70,20 @@ export const getUserPosts = async (id:number) => {
     catch (error:any) {
         console.log("Error del servidor: ", error.message)
         return error
+    }
+};
+
+export const getPosts = async () => {
+    try {
+        const response = await fetch(`http://localhost:3001/posts`)
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const posts:any = await response.json()
+        console.log(posts)
+        return posts
+    }
+    catch (error:any) {
+        console.log("Error del servidor: ", error.message)
+        return false
     }
 };
 

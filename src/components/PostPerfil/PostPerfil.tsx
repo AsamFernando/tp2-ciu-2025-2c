@@ -5,7 +5,7 @@ import { UserContext } from '../../Contexts';
 
 const PostPerfil = ({post, images, comments, accionBtn}:any) => {
     const {user} = useContext(UserContext)
-    const {description, Tags} = post
+    const {description, Tags, userId, User} = post
     const cantidadComments = comments.length
     
     const mostrarTags = () => {
@@ -31,7 +31,7 @@ const PostPerfil = ({post, images, comments, accionBtn}:any) => {
                 <CarouselPostImages images={images}/>
                 <Card.Body>
                     <ListGroup variant='flush'>
-                    <Card.Title>{`Titulo Post de ${user.nickName}`}</Card.Title>
+                    <Card.Title>{`Post de ${user.id == userId ? user.nickName : User.nickName}`}</Card.Title>
                         <ListGroup.Item>
                             {description}
                         </ListGroup.Item>

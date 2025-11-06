@@ -47,8 +47,8 @@ function App() {
     <>
       <Routes>
         <Route element={<Layout logout={logout} />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/" element={<Home verDetallePost={verDetallePost} />} />
+          <Route path="/Home" element={<Home verDetallePost={verDetallePost} />} />
           <Route path="/Perfil" element={<Perfil verDetallePost={verDetallePost}/>} />
           <Route path="/Post" element={<PostDetalle post={postDetalle} />} />
           <Route path="/Publicar" element={<Publicar />} />
