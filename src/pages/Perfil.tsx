@@ -7,15 +7,15 @@ import type { postBDType, verDetallePostType } from "../Types/Types";
 
 //mostrar las publicacion cada una en todo el ancho dela pantalla
 
-const Perfil = ({verDetallePost}:{verDetallePost:verDetallePostType}) => {
-    const {user} = useContext(UserContext);
+const Perfil = ({ verDetallePost }: { verDetallePost: verDetallePostType }) => {
+    const { user } = useContext(UserContext);
     const [posts, setPosts] = useState<postBDType[]>([])
 
     const getPosts = async () => {
         try {
             const userPosts = await getUserPosts(user.id)
             return userPosts
-        } catch (error:any) {
+        } catch (error: any) {
             console.log("Error del servidor: ", error.message)
             return error
         }
@@ -27,24 +27,24 @@ const Perfil = ({verDetallePost}:{verDetallePost:verDetallePostType}) => {
             setPosts(usePosts)
         }
         cargaPosts();
-    },[])
+    }, [user.id])
 
     return (
         <Container>
-        <h2>{`Perfil de ${user.nickName}`}</h2>
-        <Row className="justify-content-md-center">
-            {posts.length === 0 ? (<p>No hay posts todavia.</p>) : (
-                posts.map((post, i) => (
-                    <Col
-                        key={i}
-                        className="d-flex justify-content-center"
-                        xs={12} md={4} sm={6} lg={6} xl={6}
-                    >
-                        {<Post post={post} verDetallePost={verDetallePost} />}
-                    </Col>
-                ))
-            )}
-        </Row>
+            <h2>{`Perfil de ${user.nickName}`}</h2>
+            <Row className="justify-content-center g-4">
+                {posts.length === 0 ? (<p>No hay posts todavia.</p>) : (
+                    posts.map((post, i) => (
+                        <Col
+                            key={i}
+                            className="d-flex justify-content-center"
+                            xs={12} sm={6} md={6} lg={4} xl={4}  
+                        >
+                            {<Post post={post} verDetallePost={verDetallePost} />}
+                        </Col>
+                    ))
+                )}
+            </Row>
         </Container>
     )
 };

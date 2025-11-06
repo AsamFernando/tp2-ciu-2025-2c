@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { Dispatch, SetStateAction } from 'react';
 
 export interface UserContextType {
     user:{
@@ -106,7 +107,8 @@ export type PostPerfilPropsTypes = {
     post:postBDType,
     images:imageBDType[],
     comments:commentBDType[],
-    accionBtn:verDetallePostType
+    accionBtn:verDetallePostType,
+    setPosts?: Dispatch<SetStateAction<postBDType[]>>
 }
 
 export type PostCompletoPropsType = {
