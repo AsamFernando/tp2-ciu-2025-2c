@@ -2,12 +2,11 @@ import {Card, ListGroup, Badge, Button, Container} from 'react-bootstrap'
 import {CarouselPostImages} from '../../components';
 import { useContext } from 'react';
 import { UserContext } from '../../Contexts';
-import { useNavigate } from 'react-router-dom';
 
 const PostPerfil = ({post, images, comments, accionBtn}:any) => {
     const {user} = useContext(UserContext)
     const {description, Tags} = post
-    const navigate = useNavigate()
+    const cantidadComments = comments.length
     
     const mostrarTags = () => {
         return (
@@ -41,7 +40,7 @@ const PostPerfil = ({post, images, comments, accionBtn}:any) => {
                             {mostrarTags()}
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            {`${comments.length} Comentarios `}
+                            {`${cantidadComments} Comentario${cantidadComments>1?'s':''} `}
                         </ListGroup.Item>
                     </ListGroup>
                     <Button onClick={()=>{accionBtn(post)}}>

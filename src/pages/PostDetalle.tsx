@@ -44,7 +44,12 @@ const PostDetalle = ({post}:any) => {
         cargaComments();
     },[])
 
-    return <PostCompleto description={description} Tags={Tags} images={images} comments={comments} />
+    return (
+        <>
+            <h3 className="text-center" style={{marginTop:'2rem'}}>Detalle de Publicacion</h3>
+            <PostCompleto postId={id} description={description} Tags={Tags} images={images} comments={comments} />
+        </>
+    )
 };
 
 export default PostDetalle;
