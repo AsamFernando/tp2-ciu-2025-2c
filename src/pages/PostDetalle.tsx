@@ -1,16 +1,17 @@
-import {PostPerfil} from '../../components';
-import { useEffect, useState } from 'react';
-import { getPostImages } from '../../api/images';
-import { getPostComments } from '../../api/comments';
+import { useEffect, useState } from "react";
+import { PostCompleto } from '../components'
+import { getPostComments } from "../api/comments";
+import { getPostImages } from "../api/images";
 
-const Post = ({post, verDetallePost}:{post:any, verDetallePost:any}) => {
+const PostDetalle = ({post}:any) => {
     const [images, setImages] = useState<any[]>([])
     const [comments, setComments] = useState<any[]>([])
+    const {id, description, Tags} = post
 
     //hacer una funcion generica
     const getImages = async () => {
         try {
-            const postImages = await getPostImages(post.id)
+            const postImages = await getPostImages(id)
             return postImages
         } catch (error:any) {
             console.log("Error del servidor: ", error.message)
@@ -20,7 +21,7 @@ const Post = ({post, verDetallePost}:{post:any, verDetallePost:any}) => {
     //hacer una funcion generica
     const getComments = async () => {
         try {
-            const postComments = await getPostComments(post.id)
+            const postComments = await getPostComments(id)
             return postComments
         } catch (error:any) {
             console.log("Error del servidor: ", error.message)
@@ -43,9 +44,7 @@ const Post = ({post, verDetallePost}:{post:any, verDetallePost:any}) => {
         cargaComments();
     },[])
 
-    //copiar estilos de hover de tp1 ${styles.cardHover}
-    //accion boton lleva a ver el detalle de cada post con el id del post cargo los datos en la page Post
-    return <PostPerfil post={post} accionBtn={verDetallePost} images={images} comments={comments} />
+    return <PostCompleto description={description} Tags={Tags} images={images} comments={comments} />
 };
 
-export default Post;
+export default PostDetalle;

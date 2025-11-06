@@ -6,7 +6,7 @@ import { Post } from "../components";
 
 //mostrar las publicacion cada una en todo el ancho dela pantalla
 
-const Perfil = () => {
+const Perfil = ({verDetallePost}:any) => {
     const {user} = useContext(UserContext);
     const [posts, setPosts] = useState<any[]>([])
 
@@ -39,7 +39,7 @@ const Perfil = () => {
                         className="d-flex justify-content-center"
                         xs={12} md={4} sm={6} lg={6} xl={6}
                     >
-                        {<Post post={post} />}
+                        {<Post post={post} verDetallePost={verDetallePost} />}
                     </Col>
                 ))
             )}
