@@ -5,6 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 //agregar pagina publicaciones --> hecho
 // poner tooltip q diga crear publicaciones en simbolo +
+//poner los enlaces como tabs
 
 const NavBar = ({logout}:logoutProps) => {
 

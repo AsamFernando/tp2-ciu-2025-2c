@@ -58,3 +58,18 @@ export const getPostById = async (id:number) => {
         return false
     }
 };
+
+export const getUserPosts = async (id:number) => {
+    try {
+        const response = await fetch(`http://localhost:3001/posts?userId=${id}`)
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const posts:any = await response.json()
+        console.log(posts)
+        return posts
+    }
+    catch (error:any) {
+        console.log("Error del servidor: ", error.message)
+        return error
+    }
+};
+

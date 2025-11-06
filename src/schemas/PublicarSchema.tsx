@@ -5,7 +5,7 @@ export const descripcionSchema = yup.object().shape({
         .string()
         .trim('No puede contener solo espacios')
         .min(2, 'La descripcion debe tener ${min} caracteres como minimo')
-        .max(10, 'La descripcion debe tener ${max} caracteres máximo')
+        .max(250, 'La descripcion debe tener ${max} caracteres máximo')
         .required('Debe ingresar una descripcion')
 });
 
@@ -21,7 +21,7 @@ export const descripcionUrlSchema = yup.object().shape({
         .string()
         .trim('No puede contener solo espacios')
         .min(2, 'La descripcion debe tener ${min} caracteres como minimo')
-        .max(10, 'La descripcion debe tener ${max} caracteres máximo')
+        .max(250, 'La descripcion debe tener ${max} caracteres máximo')
         .required('Debe ingresar una descripcion'),
     url: yup
     .string()
